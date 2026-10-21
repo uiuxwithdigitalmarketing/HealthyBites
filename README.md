@@ -22,3 +22,8 @@ npm run dev
 ```bash
 npm run build
 ```
+
+## Live site
+https://uiuxwithdigitalmarketing.github.io/HealthyBites/
+
+Deploys automatically on every push to `main` (GitHub Actions → Pages).
