@@ -6,9 +6,9 @@
 // You can pass additional config via defineConfig({ vite: { ... }, etc... }) if needed.
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
-// GitHub Pages build: static prerender under /HealthyBites/. Lovable builds are unaffected.
+// GitHub Pages build: static prerender under /thedailyhealthytip/. Lovable builds are unaffected.
 const isGhPages = process.env.GITHUB_PAGES === "true";
-const base = "/HealthyBites/";
+const base = "/thedailyhealthytip/";
 
 export default defineConfig({
   tanstackStart: {
