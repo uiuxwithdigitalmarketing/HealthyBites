@@ -24,6 +24,6 @@ npm run build
 ```
 
 ## Live site
-https://uiuxwithdigitalmarketing.github.io/HealthyBites/
+https://uiuxwithdigitalmarketing.github.io/thedailyhealthytip/
 
 Deploys automatically on every push to `main` (GitHub Actions → Pages).
