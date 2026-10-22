@@ -19,7 +19,11 @@ export default defineConfig({
       ? {
           router: { basepath: base },
           prerender: { enabled: true, crawlLinks: true, autoSubfolderIndex: true },
-          pages: [{ path: "/" }, { path: "/recipes/healthy-low-carb-vegetarian" }],
+          pages: [
+            { path: "/" },
+            { path: "/recipes/healthy-low-carb-vegetarian" },
+            { path: "/healthy-and-low-carb-vegetarian-recipes" },
+          ],
         }
       : {}),
   },

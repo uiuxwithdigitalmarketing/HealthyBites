@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as HealthyAndLowCarbVegetarianRecipesRouteImport } from './routes/healthy-and-low-carb-vegetarian-recipes'
 import { Route as RecipesHealthyLowCarbVegetarianRouteImport } from './routes/recipes.healthy-low-carb-vegetarian'
 
 const IndexRoute = IndexRouteImport.update({
@@ -17,6 +18,12 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const HealthyAndLowCarbVegetarianRecipesRoute =
+  HealthyAndLowCarbVegetarianRecipesRouteImport.update({
+    id: '/healthy-and-low-carb-vegetarian-recipes',
+    path: '/healthy-and-low-carb-vegetarian-recipes',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const RecipesHealthyLowCarbVegetarianRoute =
   RecipesHealthyLowCarbVegetarianRouteImport.update({
     id: '/recipes/healthy-low-carb-vegetarian',
@@ -26,27 +33,41 @@ const RecipesHealthyLowCarbVegetarianRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/healthy-and-low-carb-vegetarian-recipes': typeof HealthyAndLowCarbVegetarianRecipesRoute
   '/recipes/healthy-low-carb-vegetarian': typeof RecipesHealthyLowCarbVegetarianRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/healthy-and-low-carb-vegetarian-recipes': typeof HealthyAndLowCarbVegetarianRecipesRoute
   '/recipes/healthy-low-carb-vegetarian': typeof RecipesHealthyLowCarbVegetarianRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/healthy-and-low-carb-vegetarian-recipes': typeof HealthyAndLowCarbVegetarianRecipesRoute
   '/recipes/healthy-low-carb-vegetarian': typeof RecipesHealthyLowCarbVegetarianRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/recipes/healthy-low-carb-vegetarian'
+  fullPaths:
+    | '/'
+    | '/healthy-and-low-carb-vegetarian-recipes'
+    | '/recipes/healthy-low-carb-vegetarian'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/recipes/healthy-low-carb-vegetarian'
-  id: '__root__' | '/' | '/recipes/healthy-low-carb-vegetarian'
+  to:
+    | '/'
+    | '/healthy-and-low-carb-vegetarian-recipes'
+    | '/recipes/healthy-low-carb-vegetarian'
+  id:
+    | '__root__'
+    | '/'
+    | '/healthy-and-low-carb-vegetarian-recipes'
+    | '/recipes/healthy-low-carb-vegetarian'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  HealthyAndLowCarbVegetarianRecipesRoute: typeof HealthyAndLowCarbVegetarianRecipesRoute
   RecipesHealthyLowCarbVegetarianRoute: typeof RecipesHealthyLowCarbVegetarianRoute
 }
 
@@ -57,6 +78,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/healthy-and-low-carb-vegetarian-recipes': {
+      id: '/healthy-and-low-carb-vegetarian-recipes'
+      path: '/healthy-and-low-carb-vegetarian-recipes'
+      fullPath: '/healthy-and-low-carb-vegetarian-recipes'
+      preLoaderRoute: typeof HealthyAndLowCarbVegetarianRecipesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/recipes/healthy-low-carb-vegetarian': {
@@ -71,8 +99,20 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  HealthyAndLowCarbVegetarianRecipesRoute:
+    HealthyAndLowCarbVegetarianRecipesRoute,
   RecipesHealthyLowCarbVegetarianRoute: RecipesHealthyLowCarbVegetarianRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
